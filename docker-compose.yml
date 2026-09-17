@@ -1,0 +1,48 @@
+services:
+
+  backend:
+    build: ./
+    container_name: backend
+    ports:
+     - "${PHP_PORT}:8010"
+    env_file: .env
+    volumes:
+     - ./:/var/www/html:rw
+    networks:
+      - ramwatcher-network
+
+
+
+  app-db:
+    image: mysql:5.7
+    container_name: app-db
+    restart: always
+    ports:
+     - "${MYSQL_PORT}:8020"
+    volumes:
+     - ./db:/var/lib/mysql
+     - ./mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf
+     - ./data:/var/lib/mysql-files
+     - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+    env_file: .env
+    networks:
+     - ramwatcher-network
+
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    ports:
+     - "${PHPMYADMIN_PORT}:8030"
+    env_file: .env
+    environment:
+      PMA_HOST: ${PMA_HOST}
+    networks:
+      - ramwatcher-network
+
+
+networks:
+  ramwatcher-network:
+    external: true
+    name: ramwatcher-network
