@@ -43,12 +43,20 @@ $prices = $productData[1];
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
 
+
+
+
+
 google.charts.load('current', {
+
     packages: ['corechart'],
+
     language: 'es-AR'
+
 });
 
 google.charts.setOnLoadCallback(drawChart);
+
 
 function drawChart() {
 
@@ -59,100 +67,315 @@ function drawChart() {
         <?php foreach ($prices as $price): ?>
 
             [
+
                 '<?= date('d/m/Y', strtotime($price['created_at'])) ?>',
+
                 <?= $price['price'] ?>,
+
                 '#0ABF00'
+
             ],
 
         <?php endforeach; ?>
 
     ]);
 
+
     var groupWidth = <?= count($prices) > 15 ? "'70%'" : "'90%'" ?>;
+
 
     var options = {
 
         tooltip: {
+
             trigger: 'focus',
 
             textStyle: {
+
                 fontName: 'VT323',
+
                 fontSize: 25,
+
                 bold: true,
+
                 color: '#000000ff'
+
             }
+
         },
 
         backgroundColor: 'transparent',
 
+
+        // Sin animación de Google Charts
+
         animation: {
-            startup: true,
-            duration: 1500,
-            easing: 'out'
+
+            startup: false
+
         },
+
 
         chartArea: {
+
             left: 5,
+
             top: 5,
+
             right: 5,
+
             bottom: 5,
+
             width: '94%',
+
             height: '94%'
+
         },
 
-        // Si las barras son más de X, el groupWidth pasa a ser de 70%
+
         bar: {
+
             groupWidth: groupWidth
+
         },
 
-        // Eje X
+
         hAxis: {
+
             textPosition: 'none',
 
             baselineColor: 'transparent',
 
             gridlines: {
+
                 color: 'transparent'
+
             },
 
             minorGridlines: {
+
                 color: 'transparent'
+
             }
+
         },
 
-        // Eje Y
+
         vAxis: {
+
             format: '$#,##0',
 
             textPosition: 'none',
 
+            viewWindow: {
+                    min: <?= min(array_column($prices, 'price')) * 0.9 ?>,
+                    max: <?= max(array_column($prices, 'price')) * 1.05 ?>
+                },
+
+
+
             textStyle: {
+
                 color: '#0ABF00',
+
                 fontSize: 20
+
             },
 
             baselineColor: '#ff0000ff',
 
             gridlines: {
+
                 color: 'none'
+
             },
 
             minorGridlines: {
+
                 color: 'none'
+
             }
+
         },
 
+
         legend: {
+
             position: 'none'
+
         }
+
     };
 
+
     var chart = new google.visualization.ColumnChart(
+
         document.getElementById('chart_div')
+
     );
 
+
+    // Dibujamos el gráfico UNA SOLA VEZ
+
     chart.draw(data, options);
+
+
+    // Esperamos a que Google termine de generar el SVG
+
+    setTimeout(function() {
+
+        prepararAnimacion();
+
+    }, 100);
+
+
+    function prepararAnimacion() {
+
+        var svg = document.querySelector('#chart_div svg');
+
+        if (!svg) return;
+
+
+        var rects = svg.querySelectorAll('rect');
+
+        var barras = [];
+
+
+        rects.forEach(function(rect) {
+
+            var fill = rect.getAttribute('fill');
+
+
+            if (fill === '#0ABF00') {
+
+                var y = parseFloat(rect.getAttribute('y'));
+
+                var height = parseFloat(rect.getAttribute('height'));
+
+
+                if (!isNaN(y) && !isNaN(height) && height > 0) {
+
+                    barras.push({
+
+                        rect: rect,
+
+                        y: y,
+
+                        height: height,
+
+                        bottom: y + height
+
+                    });
+
+                }
+
+            }
+
+        });
+
+
+        if (barras.length === 0) return;
+
+
+        // ==========================================
+        // EMPEZAMOS OCULTANDO LAS BARRAS
+        // ==========================================
+
+        barras.forEach(function(barra) {
+
+            barra.rect.setAttribute(
+
+                'height',
+
+                0
+
+            );
+
+            barra.rect.setAttribute(
+
+                'y',
+
+                barra.bottom
+
+            );
+
+        });
+
+
+        // ==========================================
+        // 1° FOTOGRAMA → 30%
+        // ==========================================
+
+        setTimeout(function() {
+
+            cambiarBarras(barras, 0.30);
+
+        }, 100);
+
+
+        // ==========================================
+        // 2° FOTOGRAMA → 60%
+        // ==========================================
+
+        setTimeout(function() {
+
+            cambiarBarras(barras, 0.60);
+
+        }, 1100);
+
+
+        // ==========================================
+        // 3° FOTOGRAMA → 100%
+        // ==========================================
+
+        setTimeout(function() {
+
+            cambiarBarras(barras, 1.00);
+
+        }, 2100);
+
+    }
+
+
+    function cambiarBarras(barras, porcentaje) {
+
+        barras.forEach(function(barra) {
+
+            var nuevaAltura = barra.height * porcentaje;
+
+            var nuevoY = barra.bottom - nuevaAltura;
+
+
+            // Cambio INSTANTÁNEO.
+            // No hay transición ni suavizado.
+
+            barra.rect.setAttribute(
+
+                'height',
+
+                nuevaAltura
+
+            );
+
+            barra.rect.setAttribute(
+
+                'y',
+
+                nuevoY
+
+            );
+
+        });
+
+    }
+
 }
+
+
+
+
+
+
     </script>
 
     <script src="main.js"></script>

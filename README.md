@@ -33,3 +33,19 @@ MYSQL_ROOT_PASSWORD=root
 DATABASE_NAME=ram_watcher
 
 TZ=America/Argentina/Buenos_Aires
+
+
+
+
+comando para darle persmisos al usuario de docker para que el crono funcione bien
+
+sudo usermod -aG docker $USER
+
+
+
+Comando para abrir el archivo de configuracion de cron (recomiendo usar nano)
+
+crontab -e
+
+Se pega esta linea abajo del todo para que se ejecute cada 24 hs
+0 12 * * * docker exec ramwatcher-php-1 php /var/www/html/scripts/updater.php
