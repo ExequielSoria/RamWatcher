@@ -8,6 +8,17 @@ class ProductsModel{
 
     //function updateProduct(){}
 
+    function countProducts(){
+
+    $db = Connection::connect();
+
+    $query = $db->query(
+        "SELECT COUNT(*) FROM products"
+    );
+
+    return $query->fetchColumn();
+
+    }
 
 
     //Devuelve el id y el link de la web
@@ -109,22 +120,28 @@ class ProductsModel{
 
 
 
-    public function getProduct($productID)
-    {
-        $db = Connection::connect();
+public function getProduct($productID)
+{
+    $db = Connection::connect();
 
-        $query = $db->prepare(
-            "SELECT *
-            FROM products
-            WHERE product_id = :product_id"
-        );
+    $query = $db->prepare(
+        "SELECT *
+         FROM products
+         WHERE product_id = :product_id"
+    );
 
-        $query->execute([
-            ":product_id" => $productID
-        ]);
+    $query->execute([
+        ":product_id" => $productID
+    ]);
 
-        return $query->fetch(PDO::FETCH_ASSOC);
+    $product = $query->fetch(PDO::FETCH_ASSOC);
+
+    if ($product === false) {
+        return false;
     }
+
+    return $product;
+}
 
 
     function getPriceHistory($productID)

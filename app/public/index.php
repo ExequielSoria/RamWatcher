@@ -32,7 +32,7 @@ $productData = $controller->showProduct($id);
 $product = $productData[0];
 $prices = $productData[1];
 
-print($prices);
+//print($prices);
     
 
 
@@ -80,7 +80,7 @@ print($prices);
                     trigger: 'focus',
                     textStyle: {
                         fontName: 'VT323',
-                        fontSize: 30,
+                        fontSize: 25,
                         bold: true,
                         color: '#000000ff'
                     }
@@ -155,7 +155,7 @@ print($prices);
 <p class="tittle1">RAM</p>
 
 
-<p class="liña">◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼</p>
+<p class="liña">◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼</p>
 <!--  <hr class="line">  --->
 
 <p class="tittle2">Watcher</p>
@@ -176,7 +176,13 @@ print($prices);
 </a>
 
 
-        <p class="product-name"><?= $product["name"] ?></p>
+<a target="_blank" href="<?= $product["link"] ?>">
+
+<p class="product-name"><?= $product["name"] ?></p>
+
+</a>
+
+
 
 <a href="/<?= $id + 1 ?>">
 

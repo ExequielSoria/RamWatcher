@@ -8,15 +8,24 @@
     margin-top: 50px;
 }
 
+.product-name:hover{
+    text-decoration-color: #0ABF00;
+
+}
 .product-name{
     width: 450px;
-
     font-family: 'VT323';
-    font-size: 40px;
+    font-size: 35px;
     color: #37E502;
     margin: 0px;
     padding: 0px;
+    cursor: pointer;
 
+
+
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    transition: text-decoration-color 0.1s ease;
 }
 
 .selector-btn{
@@ -30,7 +39,20 @@
     border: 5px solid #37E502;
     color: #37E502;
     background-color: rgb(0, 0, 0);
+    transition: background-color 0.2s ease, color 0.2s ease;
+    cursor: pointer;
 }
+
+
+.selector-btn:hover {
+    background-color: #37E502;
+    color: #000;
+}
+
+a {
+    text-decoration: none;
+}
+
 
 body{
     text-align: center;
@@ -41,7 +63,7 @@ body{
 
 .tittle1{
     font-family: 'Rubik Pixels';
-    font-size: 80px;
+    font-size: 70px;
     color: #37E502;
     margin: 0;
     padding: 0;
@@ -51,13 +73,13 @@ body{
 
 .liña{
     color: #37E502;
-    font-size: 9px;
+    font-size: 6px;
 
     padding: 0;
     border: none;
 
     margin-top: 0px;
-    margin-bottom: 0px;
+    margin-bottom: 5px;
 
     padding-top: 0px;
     padding-bottom: 0px;
@@ -86,7 +108,7 @@ body{
     margin-bottom: 0px;
 
     font-family: 'Pixelify sans';
-    font-size: 25px;
+    font-size: 20px;
     padding: 0px;
     color: #37E502;
 
@@ -97,9 +119,9 @@ body{
     justify-content: center;
     margin: auto;
     margin-top: 30px;
-    border: 6px solid #37E502;
+    border: 5px solid #37E502;
     max-width: 90%;
-    height: 250px;
+    height: 220px;
 }
 
 
@@ -111,43 +133,44 @@ body{
 
 }
 
+
 .imagen-pixel {
-    width: 160px;
-    height: 160px;
+    width: 125px;
+    height: 125px;
     background: #0ABF00;
 
     clip-path: polygon(
-        20px 0,
-        140px 0,
-        140px 5px,
-        150px 5px,
-        150px 10px,
-        155px 10px,
-        155px 20px,
-        160px 20px,
+        16px 0,
+        109px 0,
+        109px 4px,
+        117px 4px,
+        117px 8px,
+        121px 8px,
+        121px 16px,
+        125px 16px,
 
-        160px 140px,
-        155px 140px,
-        155px 150px,
-        150px 150px,
-        150px 155px,
-        140px 155px,
-        140px 160px,
+        125px 109px,
+        121px 109px,
+        121px 117px,
+        117px 117px,
+        117px 121px,
+        109px 121px,
+        109px 125px,
 
-        20px 160px,
-        20px 155px,
-        10px 155px,
-        10px 150px,
-        5px 150px,
-        5px 140px,
-        0 140px,
+        16px 125px,
+        16px 121px,
+        8px 121px,
+        8px 117px,
+        4px 117px,
+        4px 109px,
+        0 109px,
 
-        0 20px,
-        5px 20px,
-        5px 10px,
-        10px 10px,
-        10px 5px,
-        20px 5px
+        0 16px,
+        4px 16px,
+        4px 8px,
+        8px 8px,
+        8px 4px,
+        16px 4px
     );
 
     display: flex;
@@ -156,41 +179,41 @@ body{
 }
 
 .imagen-pixel img {
-    width: 150px;
-    height: 150px;
+    width: 117px;
+    height: 117px;
     object-fit: cover;
 
     clip-path: polygon(
         15px 0,
-        135px 0,
-        135px 3px,
-        142px 3px,
-        142px 8px,
-        147px 8px,
-        147px 15px,
-        150px 15px,
+        102px 0,
+        102px 4px,
+        110px 4px,
+        110px 8px,
+        114px 8px,
+        114px 15px,
+        117px 15px,
 
-        150px 135px,
-        147px 135px,
-        147px 142px,
-        142px 142px,
-        142px 147px,
-        135px 147px,
-        135px 150px,
+        117px 102px,
+        114px 102px,
+        114px 110px,
+        110px 110px,
+        110px 114px,
+        102px 114px,
+        102px 117px,
 
-        15px 150px,
-        15px 147px,
-        8px 147px,
-        8px 142px,
-        3px 142px,
-        3px 135px,
-        0 135px,
+        15px 117px,
+        15px 114px,
+        8px 114px,
+        8px 110px,
+        4px 110px,
+        4px 102px,
+        0 102px,
 
         0 15px,
-        3px 15px,
-        3px 8px,
+        4px 15px,
+        4px 8px,
         8px 8px,
-        8px 3px,
-        15px 3px
+        8px 4px,
+        15px 4px
     );
 }

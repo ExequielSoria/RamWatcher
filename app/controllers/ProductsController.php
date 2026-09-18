@@ -23,6 +23,20 @@ class ProductsController{
 
     $product = $ProductsModel->getProduct($productID);
 
+    if ($product === false) {
+        
+      $product = $ProductsModel->CountProducts();
+      if( $productID >  $product){
+
+
+        echo '<meta http-equiv="refresh" content="0;url=/6">';
+        exit;
+
+
+      }
+
+    }
+
     $prices = $ProductsModel->getPriceHistory($productID);
 
 
