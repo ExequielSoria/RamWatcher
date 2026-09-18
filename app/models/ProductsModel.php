@@ -11,17 +11,17 @@ class ProductsModel{
 
 
     //Devuelve el id y el link de la web
-public function getAllProducts()
-{
-    $db = Connection::connect();
+    public function getAllProducts()
+    {
+        $db = Connection::connect();
 
-    $query = $db->query(
-        "SELECT product_id, link
-         FROM products"
-    );
+        $query = $db->query(
+            "SELECT product_id, link
+            FROM products"
+        );
 
-    return $query->fetchAll(PDO::FETCH_ASSOC);
-}
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
 
 
 
@@ -106,6 +106,45 @@ public function getAllProducts()
 
         return $query->fetchColumn();
     }
+
+
+
+    public function getProduct($productID)
+    {
+        $db = Connection::connect();
+
+        $query = $db->prepare(
+            "SELECT *
+            FROM products
+            WHERE product_id = :product_id"
+        );
+
+        $query->execute([
+            ":product_id" => $productID
+        ]);
+
+        return $query->fetch(PDO::FETCH_ASSOC);
+    }
+
+
+    function getPriceHistory($productID)
+    {
+        $db = Connection::connect();
+
+        $query = $db->prepare(
+            "SELECT price, created_at
+            FROM price_history
+            WHERE product_id = :product_id
+            ORDER BY created_at ASC"
+        );
+
+        $query->execute([
+            ":product_id" => $productID
+        ]);
+
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 
 
 

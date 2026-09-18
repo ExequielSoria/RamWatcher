@@ -7,6 +7,30 @@ require_once __DIR__ . "/ScrapeController.php";
 
 class ProductsController{
 
+  function getAllProducts(){
+    
+    $ProductsModel = new ProductsModel();
+
+    return $product = $ProductsModel->getAllProducts();
+  }
+
+
+  function showProduct( $productID ){
+
+    $ProductsModel = new ProductsModel();
+
+
+
+    $product = $ProductsModel->getProduct($productID);
+
+    $prices = $ProductsModel->getPriceHistory($productID);
+
+
+    return [$product , $prices];
+
+  }
+
+
   //Extrae la info de la bdd, como el link y la tienda (para determinar que metodo de scrapeo usar)
   function updateProductFromDB(){}
   
@@ -112,7 +136,7 @@ $url = "https://www.mexx.com.ar/productos-rubro/memorias-ram/40388-memoria-ram-d
 
 //$url = "https://www.mexx.com.ar/productos-rubro/memorias-ram/50228-memoria-ram-ddr5-32gb-6000-mhz-kingston-fury-beast-rgb.html";
 
-print_r($ClassTesting->updateAllProducts() );
+//print_r($ClassTesting->updateAllProducts() );
 
 
 
