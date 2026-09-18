@@ -43,115 +43,123 @@ $prices = $productData[1];
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
 
-        google.charts.load('current', {
-            packages: ['corechart'],
-            language: 'es-AR'
-        });
+google.charts.load('current', {
+    packages: ['corechart'],
+    language: 'es-AR'
+});
 
+google.charts.setOnLoadCallback(drawChart);
 
+function drawChart() {
 
+    var data = google.visualization.arrayToDataTable([
 
-        google.charts.load('current', {
-            packages: ['corechart']
-        });
+        ['Fecha', 'Precio', { role: 'style' }],
 
-        google.charts.setOnLoadCallback(drawChart);
+        <?php foreach ($prices as $price): ?>
 
-        function drawChart() {
+            [
+                '<?= date('d/m/Y', strtotime($price['created_at'])) ?>',
+                <?= $price['price'] ?>,
+                '#0ABF00'
+            ],
 
-        var data = google.visualization.arrayToDataTable([
-            ['Fecha', 'Precio', { role: 'style' }],
+        <?php endforeach; ?>
 
-            <?php foreach ($prices as $price): ?>
-                [
-                    '<?= date('d/m/Y', strtotime($price['created_at'])) ?>',
-                    <?= $price['price']?>,
-                    '#0ABF00'
-                ],
-            <?php endforeach; ?>
+    ]);
 
-        ]);
+    var groupWidth = <?= count($prices) > 15 ? "'70%'" : "'90%'" ?>;
 
-            var groupWidth = <?= count($prices) > 15 ? "'70%'" : "'90%'" ?>;
+    var options = {
 
-            var options = {
+        tooltip: {
+            trigger: 'focus',
 
-                tooltip: {
-                    trigger: 'focus',
-                    textStyle: {
-                        fontName: 'VT323',
-                        fontSize: 25,
-                        bold: true,
-                        color: '#000000ff'
-                    }
-                },
+            textStyle: {
+                fontName: 'VT323',
+                fontSize: 25,
+                bold: true,
+                color: '#000000ff'
+            }
+        },
 
-                backgroundColor: 'transparent',
+        backgroundColor: 'transparent',
 
-                chartArea: {
-                    left: 5,
-                    top: 5,
-                    right: 5,
-                    bottom: 5,
-                    width: '94%',
-                    height: '94%'
-                },
+        animation: {
+            startup: true,
+            duration: 1500,
+            easing: 'out'
+        },
 
+        chartArea: {
+            left: 5,
+            top: 5,
+            right: 5,
+            bottom: 5,
+            width: '94%',
+            height: '94%'
+        },
 
-                //Si las barras son mas de X el groupWidth pasa a ser de 60%
-                bar: {
-                    groupWidth: groupWidth
-                },
+        // Si las barras son más de X, el groupWidth pasa a ser de 70%
+        bar: {
+            groupWidth: groupWidth
+        },
 
-                    // Eje X
-                hAxis: {
-                    textPosition: 'none',
-                    baselineColor: 'transparent',
-                    gridlines: {
-                        color: 'transparent'
-                    },
-                    minorGridlines: {
-                        color: 'transparent'
-                    }
-                },
+        // Eje X
+        hAxis: {
+            textPosition: 'none',
 
-                // Eje Y
-                vAxis: {
+            baselineColor: 'transparent',
 
-                    format: '$#,##0',
+            gridlines: {
+                color: 'transparent'
+            },
 
-                    textPosition: 'none',
+            minorGridlines: {
+                color: 'transparent'
+            }
+        },
 
-                    textStyle: {
-                        color: '#0ABF00',
-                        fontSize: 20
-                    },
-                    baselineColor: '#ff0000ff',
-                    gridlines: {
-                        color: 'none'
-                    },
-                    minorGridlines: {
-                        color: 'none'
-                    }
-                },
+        // Eje Y
+        vAxis: {
+            format: '$#,##0',
 
-                legend: {
-                    position: 'none'
-                }
-            };
+            textPosition: 'none',
 
-            var chart = new google.visualization.ColumnChart(
-                document.getElementById('chart_div')
-            );
+            textStyle: {
+                color: '#0ABF00',
+                fontSize: 20
+            },
 
-            chart.draw(data, options);
+            baselineColor: '#ff0000ff',
+
+            gridlines: {
+                color: 'none'
+            },
+
+            minorGridlines: {
+                color: 'none'
+            }
+        },
+
+        legend: {
+            position: 'none'
         }
+    };
 
+    var chart = new google.visualization.ColumnChart(
+        document.getElementById('chart_div')
+    );
+
+    chart.draw(data, options);
+}
     </script>
+
+    <script src="main.js"></script>
 
 </head>
 <body>
-    
+
 <p class="tittle1">RAM</p>
 
 
@@ -172,24 +180,16 @@ $prices = $productData[1];
 
 
 <a href="/<?= $id - 1 ?>">
-        <input class="selector-btn" type="button" value="<">
+    <input class="selector-btn" type="button" value="<">
 </a>
-
 
 <a target="_blank" href="<?= $product["link"] ?>">
-
-<p class="product-name"><?= $product["name"] ?></p>
-
+    <p class="product-name"><?= $product["name"] ?></p>
 </a>
-
-
 
 <a href="/<?= $id + 1 ?>">
-
-        <input class="selector-btn" type="button" value=">">
+    <input class="selector-btn" type="button" value=">">
 </a>
-
-</div>
 
 
 

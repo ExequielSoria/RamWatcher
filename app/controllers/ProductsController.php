@@ -29,7 +29,7 @@ class ProductsController{
       if( $productID >  $product){
 
 
-        echo '<meta http-equiv="refresh" content="0;url=/6">';
+        echo '<meta http-equiv="refresh" content="0;url=/1">';
         exit;
 
 

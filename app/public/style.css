@@ -1,5 +1,38 @@
+@view-transition {
+    navigation: auto;
+}
 
+/* DERECHA */
 
+html.right::view-transition-new(root) {
+    animation: entrar-desde-derecha 1s ease;
+}
+
+/* IZQUIERDA */
+
+html.left::view-transition-new(root) {
+    animation: entrar-desde-izquierda 1s ease;
+}
+
+@keyframes entrar-desde-derecha {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes entrar-desde-izquierda {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
 .selector{
     display: flex;
     justify-content: center;
