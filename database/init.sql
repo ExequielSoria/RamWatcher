@@ -6,7 +6,7 @@ CREATE TABLE products (
     product_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     model VARCHAR(100),
-    url_img VARCHAR(500) NOT NULL
+    url_img VARCHAR(500) NOT NULL,
     link VARCHAR(500) NOT NULL
 );
 

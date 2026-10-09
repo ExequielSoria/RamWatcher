@@ -49,3 +49,8 @@ crontab -e
 
 Se pega esta linea abajo del todo para que se ejecute cada 24 hs
 0 12 * * * docker exec ramwatcher-php-1 php /var/www/html/scripts/updater.php
+
+
+
+Comando para añadir producto de Mexx.com (pronto api)
+php addProductMexx.php "https://www.mexx.com.ar/productos-rubro/memorias-ram/40388-ejemplo.html"

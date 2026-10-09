@@ -25,14 +25,14 @@
 
     $controller = new ProductsController();
 
-$id = isset($_GET['id']) ? (int) $_GET['id'] : 1;
+    $id = isset($_GET['id']) ? (int) $_GET['id'] : 1;
 
-$productData = $controller->showProduct($id);
+    $productData = $controller->showProduct($id);
 
-$product = $productData[0];
-$prices = $productData[1];
+    $product = $productData[0];
+    $prices = $productData[1];
 
-//print($prices);
+    //print($prices);
     
 
 
