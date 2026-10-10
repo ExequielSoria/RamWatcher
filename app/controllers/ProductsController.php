@@ -14,33 +14,31 @@ class ProductsController{
     return $product = $ProductsModel->getAllProducts();
   }
 
-
+  //Esta es la funcion inicial del index, es la que llama y muestra el producto
   function showProduct( $productID ){
 
-    $ProductsModel = new ProductsModel();
-
-
-
-    $product = $ProductsModel->getProduct($productID);
-
-    if ($product === false) {
-        
-      $product = $ProductsModel->CountProducts();
-      if( $productID >  $product){
-
-
-        echo '<meta http-equiv="refresh" content="0;url=/1">';
-        exit;
-
-
+    
+      $ProductsModel = new ProductsModel();
+  
+      $product = $ProductsModel->getProduct($productID);
+    
+      if ($product === false) {
+          
+        $product = $ProductsModel->CountProducts();
+        if( $productID >  $product){
+  
+          echo '<meta http-equiv="refresh" content="0;url=/1">';
+          exit;
+  
+        }
+  
       }
-
-    }
-
-    $prices = $ProductsModel->getPriceHistory($productID);
-
-
-    return [$product , $prices];
+  
+      $prices = $ProductsModel->getPriceHistory($productID);
+  
+      return [$product , $prices];
+      
+    
 
   }
 

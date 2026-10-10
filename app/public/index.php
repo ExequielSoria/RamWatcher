@@ -6,7 +6,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ram Tracker</title>
+    <title>Ram Watcher</title>
 
     
     <!--- Fuentes de Google Fonts --->
@@ -20,6 +20,8 @@
 
 
 <?php
+
+    //Pequeña parte del codigo TEMPORAL que lee la url para recuperar y mostrar el producto
 
     require_once __DIR__ . "/../controllers/ProductsController.php";
 
