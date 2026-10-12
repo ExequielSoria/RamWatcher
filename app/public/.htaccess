@@ -5,11 +5,11 @@ RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-# API
-RewriteRule ^api/price/([0-9]+)/?$ api.php?resource=price&id=$1 [L,QSA]
+# Todas las rutas de la API
+RewriteRule ^api(?:/.*)?$ api.php [L,QSA]
 
-# Web
+# Web productos por ID
 RewriteRule ^([0-9]+)/?$ index.php?id=$1 [L,QSA]
 
-# Cualquier otra URL
+# Cualquier otra URL vuelve al grafico
 RewriteRule ^ index.php [L,QSA]
