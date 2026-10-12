@@ -5,10 +5,34 @@ require_once __DIR__ . "/../controllers/ProductsController.php" ;
 require_once __DIR__ . "/Database.php";
 
 class ProductsModel{
+    
+    public function getAllProductsWithLatestPrice(){
+        $db = Connection::connect();
 
-    //function updateProduct(){}
+        $query = $db->prepare("
+            SELECT
+                p.*,
+                ph.price AS latest_price,
+                ph.created_at AS latest_price_date
+            FROM products p
+            LEFT JOIN price_history ph
+                ON ph.product_id = p.product_id
+                AND ph.created_at = (
+                    SELECT MAX(ph2.created_at)
+                    FROM price_history ph2
+                    WHERE ph2.product_id = p.product_id
+                )
+            ORDER BY p.product_id ASC
+        ");
 
-    function countProducts(){
+        $query->execute();
+
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+
+
+    public function countProducts(){
 
     $db = Connection::connect();
 
