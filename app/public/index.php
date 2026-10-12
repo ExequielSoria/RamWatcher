@@ -4,9 +4,11 @@
 
     <link rel="stylesheet" href="/style.css">
 
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ram Tracker</title>
+    <title>Ram Observer</title>
 
     <!-- Fuentes de Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -68,11 +70,11 @@
 
     <p class="tittle1">RAM</p>
 
-    <p class="liña">
-        ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼
+    <p class="line">
+        ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼
     </p>
 
-    <p class="tittle2">Watcher</p>
+    <p class="tittle2">Observer</p>
 
     <div class="container">
         <div

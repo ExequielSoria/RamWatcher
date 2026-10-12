@@ -96,15 +96,15 @@ body{
 
 .tittle1{
     font-family: 'Rubik Pixels';
-    font-size: 70px;
+    font-size: 65px;
     color: #37E502;
     margin: 0;
     padding: 0;
-    height: 80px;
+    height: 65px;
 
 }
 
-.liña{
+.line{
     color: #37E502;
     font-size: 6px;
 
@@ -119,21 +119,6 @@ body{
 
 }
 
-
-.line{
-    border: 1px solid #37E502;
-    width: 200px;
-    padding: 0;
-    border: none;
-    border-top: 5px dashed #37E502;
-
-    margin-top: 0px;
-    margin-bottom: 0px;
-
-    padding-top: 0px;
-    padding-bottom: 0px;
-
-}
 
 .tittle2{
   
@@ -170,7 +155,7 @@ body{
 .imagen-pixel {
     width: 125px;
     height: 125px;
-    background: #0ABF00;
+    background: #37E502;
 
     clip-path: polygon(
         16px 0,
