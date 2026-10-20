@@ -11,6 +11,19 @@ services:
       - ramwatcher-network
 
 
+  updater:
+    build: ./
+    command: ["cron", "-f"]
+    restart: always
+    env_file: .env
+    volumes:
+      - ./:/var/www/html:rw
+    depends_on:
+      - app-db
+    networks:
+      - ramwatcher-network
+
+
 
   app-db:
     image: mysql:5.7

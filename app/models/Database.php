@@ -1,17 +1,26 @@
-<?php 
+<?php
 
-class Connection{
+class Connection
+{
+    function connect()
+    {
+        $host = getenv("MYSQL_HOST") ?: ($_ENV["MYSQL_HOST"] ?? "");
+        $database = getenv("DATABASE_NAME") ?: ($_ENV["DATABASE_NAME"] ?? "");
+        $user = getenv("MYSQL_USER") ?: ($_ENV["MYSQL_USER"] ?? "");
+        $pass = getenv("MYSQL_PASSWORD");
 
-	function connect() {
-	
-	  $dsn = "mysql:host=".$_ENV["MYSQL_HOST"]."; dbname=".$_ENV["DATABASE_NAME"];
-	  $user = $_ENV["MYSQL_USER"];
-	  $pass = $_ENV['MYSQL_PASSWORD'];
-	  
-	  $link = new PDO($dsn, $user, $pass);
-	  $link->exec("SET NAMES utf8");
-	  return $link;
-	  
-	}
+        if ($pass === false) {
+            $pass = $_ENV["MYSQL_PASSWORD"] ?? "";
+        }
 
+        if ($host === "" || $database === "" || $user === "") {
+            throw new RuntimeException("Faltan variables de entorno para MySQL.");
+        }
+
+        $dsn = "mysql:host={$host};dbname={$database}";
+        $link = new PDO($dsn, $user, $pass);
+        $link->exec("SET NAMES utf8");
+
+        return $link;
+    }
 }
