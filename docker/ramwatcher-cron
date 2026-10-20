@@ -1,0 +1,5 @@
+
+SHELL=/bin/sh
+PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin
+
+0 16 * * * root /usr/local/bin/php /var/www/html/scripts/updater.php >> /proc/1/fd/1 2>> /proc/1/fd/2
