@@ -58,6 +58,42 @@ class Routes{
             // Todos los productos guardados en la BDD, sin precios.                
             case 'products':
 
+                // POST /api/products: requiere autenticación.
+                if ($method === 'POST' && count($segments) === 2) {
+                    if (!$controller->authenticateClient()) {
+                        return;
+                    }
+
+                    $controller->createProduct();
+                    return;
+                }
+
+                // DELETE /api/products/{id}: requiere autenticación.
+                if ($method === 'DELETE' && count($segments) === 3) {
+                    if (!$controller->authenticateClient()) {
+                        return;
+                    }
+
+                    $controller->deleteProduct($segments[2]);
+                    return;
+                }
+
+                // DELETE /api/products/{id}/prices: requiere autenticación.
+                if (
+                    $method === 'DELETE' &&
+                    count($segments) === 4 &&
+                    $segments[3] === 'prices'
+                ) {
+                    if (!$controller->authenticateClient()) {
+                        return;
+                    }
+
+                    $controller->deleteProductPrices($segments[2]);
+                    return;
+                }
+
+
+
                 if ($method !== 'GET') {
                     http_response_code(405);
                     header('Content-Type: application/json; charset=utf-8');

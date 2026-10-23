@@ -5,7 +5,7 @@ require_once __DIR__ . "/../controllers/ProductsController.php" ;
 require_once __DIR__ . "/Database.php";
 
 class ProductsModel{
-    
+   
     public function getAllProductsWithLatestPrice(){
         $db = Connection::connect();
 
@@ -46,8 +46,7 @@ class ProductsModel{
 
 
     //Devuelve el id y el link de la web
-    public function getAllProducts()
-    {
+    public function getAllProducts(){
         $db = Connection::connect();
 
         $query = $db->query(
@@ -60,8 +59,8 @@ class ProductsModel{
 
 
 
-    function productExist($model)
-    {
+    function productExist($model){
+
         $db = Connection::connect();
 
         $query = $db->prepare(
@@ -78,8 +77,8 @@ class ProductsModel{
         return $query->fetch() !== false;
     }
 
-    function createPrice($productId, $price)
-    {
+    function createPrice($productId, $price){
+
         echo "CREANDO PRECIO <br>";
 
 
@@ -100,8 +99,7 @@ class ProductsModel{
     }
 
 
-    function createProduct($name, $model, $img, $link)
-    {
+    function createProduct($name, $model, $img, $link){
 
         echo "<br> CREANDO PRODUCTO <br>";
 
@@ -124,8 +122,8 @@ class ProductsModel{
     }
 
 
-    function getProductByModel($model)
-    {
+    function getProductByModel($model){
+
         $db = Connection::connect();
 
         $query = $db->prepare(
@@ -144,32 +142,31 @@ class ProductsModel{
 
 
 
-public function getProduct($productID)
-{
-    $db = Connection::connect();
+    public function getProduct($productID){
+        
+        $db = Connection::connect();
 
-    $query = $db->prepare(
-        "SELECT *
-         FROM products
-         WHERE product_id = :product_id"
-    );
+        $query = $db->prepare(
+            "SELECT *
+            FROM products
+            WHERE product_id = :product_id"
+        );
 
-    $query->execute([
-        ":product_id" => $productID
-    ]);
+        $query->execute([
+            ":product_id" => $productID
+        ]);
 
-    $product = $query->fetch(PDO::FETCH_ASSOC);
+        $product = $query->fetch(PDO::FETCH_ASSOC);
 
-    if ($product === false) {
-        return false;
+        if ($product === false) {
+            return false;
+        }
+
+        return $product;
     }
 
-    return $product;
-}
 
-
-    function getPriceHistory($productID)
-    {
+    function getPriceHistory($productID){
         $db = Connection::connect();
 
         $query = $db->prepare(
@@ -187,6 +184,65 @@ public function getProduct($productID)
     }
 
 
+    public function deletePriceHistory($productID) {
+    $db = Connection::connect();
+
+    $query = $db->prepare("
+        DELETE FROM price_history
+        WHERE product_id = :product_id
+    ");
+
+    $query->execute([
+        ":product_id" => $productID
+    ]);
+
+    return $query->rowCount();
+}
+
+    public function deleteProduct($productID) {
+        $db = Connection::connect();
+
+        try {
+            $db->beginTransaction();
+
+            // Primero eliminamos el historial asociado.
+            $query = $db->prepare("
+                DELETE FROM price_history
+                WHERE product_id = :product_id
+            ");
+
+            $query->execute([
+                ":product_id" => $productID
+            ]);
+
+            // Después eliminamos el producto.
+            $query = $db->prepare("
+                DELETE FROM products
+                WHERE product_id = :product_id
+            ");
+
+            $query->execute([
+                ":product_id" => $productID
+            ]);
+
+            if ($query->rowCount() === 0) {
+                $db->rollBack();
+                return false;
+            }
+
+            $db->commit();
+            return true;
+
+        } catch (Throwable $e) {
+
+            if ($db->inTransaction()) {
+                $db->rollBack();
+            }
+
+            throw $e;
+        }
+    
+    }
 
 
 }
