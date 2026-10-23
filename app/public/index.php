@@ -38,6 +38,16 @@
 
         $minPrice = min($priceValues);
         $maxPrice = max($priceValues);
+        
+        
+        
+        //Valores necesarios para los botones de ANTERIOR y SIGUIENTE
+        $previousId = $controller->getAdjacentProductId($id, 'previous');
+        $nextId = $controller->getAdjacentProductId($id, 'next');
+
+        $previousId = $previousId !== false ? $previousId : 1;
+        $nextId = $nextId !== false ? $nextId : 1;
+
     ?>
 
     <!-- Google Charts -->
@@ -69,7 +79,6 @@
 <body>
 
     <p class="tittle1">RAM</p>
-
     <p class="line">
         ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼
     </p>
@@ -94,25 +103,26 @@
             >
         </div>
 
-        <a href="/<?= $id - 1 ?>">
-            <input
-                class="selector-btn"
-                type="button"
-                value="<"
-            >
+
+        <a href="/<?= $previousId ?>">
+            <input class="selector-btn" type="button" value="<" >
         </a>
 
         <a
             target="_blank"
             rel="noopener noreferrer"
-            href="<?= htmlspecialchars($product['link'], ENT_QUOTES, 'UTF-8') ?>"
+            href="<?= htmlspecialchars($product['link'], ENT_QUOTES, 'UTF-8') ?>" 
         >
-            <p class="product-name">
-                <?= htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8') ?>
-            </p>
-        </a>
 
-        <a href="/<?= $id + 1 ?>">
+
+        <p class="product-name">
+                <?= htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8') ?>
+        </p>
+        
+    </a>
+
+
+        <a href="/<?= $nextId ?>">
             <input
                 class="selector-btn"
                 type="button"
