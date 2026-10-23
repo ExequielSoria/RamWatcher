@@ -1,0 +1,17 @@
+body{
+    background-color: black;
+
+}
+
+*{
+    color:#0ABF00;
+    font-family: VT323;
+    font-size: 20px;
+}
+
+.highlight {
+    background-color: #0ABF00;
+    color: black;
+    padding: 2px 4px;
+    font-size: 30px;
+}

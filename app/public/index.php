@@ -78,12 +78,31 @@
 
 <body>
 
-    <p class="tittle1">RAM</p>
-    <p class="line">
-        ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼
-    </p>
+<div class="tittle-container">
 
-    <p class="tittle2">Observer</p>
+    <div class="btn-corner">
+        <a href="/docs.php" >Docs API</a>
+    </div>
+
+
+    <div class="tittle-linked">
+        <p class="tittle1">RAM</p>
+        <p class="line">
+            ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼ ◼
+        </p>
+        
+        <p class="tittle2">Observer</p>
+    </div>
+
+    <div>
+        <a href="https://www.mexx.com.ar" target="blank"  </a> <img class="logo-mexx" src="https://www.mexx.com.ar/assets/img/kit/logo_mexx_v2.png" alt="Logo de tienda mexx"> 
+    </div>
+
+
+</div>
+
+
+
 
     <div class="container">
         <div
