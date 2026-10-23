@@ -126,5 +126,12 @@ class ProductsController{
             'model' => $model
         ];
       }
+
+
+    public function getAdjacentProductId($id, $direction) {
+        $model = new ProductsModel();
+        return $model->getAdjacentProductId($id, $direction);
+    }
+
     
 }

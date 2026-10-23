@@ -34,13 +34,13 @@ class ProductsModel{
 
     public function countProducts(){
 
-    $db = Connection::connect();
+        $db = Connection::connect();
 
-    $query = $db->query(
-        "SELECT COUNT(*) FROM products"
-    );
+        $query = $db->query(
+            "SELECT COUNT(*) FROM products"
+        );
 
-    return $query->fetchColumn();
+        return $query->fetchColumn();
 
     }
 
@@ -185,19 +185,19 @@ class ProductsModel{
 
 
     public function deletePriceHistory($productID) {
-    $db = Connection::connect();
+        $db = Connection::connect();
 
-    $query = $db->prepare("
-        DELETE FROM price_history
-        WHERE product_id = :product_id
-    ");
+        $query = $db->prepare("
+            DELETE FROM price_history
+            WHERE product_id = :product_id
+        ");
 
-    $query->execute([
-        ":product_id" => $productID
-    ]);
+        $query->execute([
+            ":product_id" => $productID
+        ]);
 
-    return $query->rowCount();
-}
+        return $query->rowCount();
+    }
 
     public function deleteProduct($productID) {
         $db = Connection::connect();
@@ -243,6 +243,38 @@ class ProductsModel{
         }
     
     }
+
+
+    public function getAdjacentProductId($id, $direction) {
+        
+        $db = Connection::connect();
+
+        if ($direction === 'next') {
+            $query = $db->prepare("
+                SELECT product_id
+                FROM products
+                WHERE product_id > :id
+                ORDER BY product_id ASC
+                LIMIT 1
+            ");
+        } elseif ($direction === 'previous') {
+            $query = $db->prepare("
+                SELECT product_id
+                FROM products
+                WHERE product_id < :id
+                ORDER BY product_id DESC
+                LIMIT 1
+            ");
+        } else {
+            return false;
+        }
+
+        $query->execute([':id' => $id]);
+        $result = $query->fetchColumn();
+
+        return $result === false ? false : (int) $result;
+    }
+
 
 
 }
