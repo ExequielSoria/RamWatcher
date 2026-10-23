@@ -21,4 +21,33 @@ class ClientsModel{
 
         return $db->lastInsertId();
     }
+
+
+    public function getClientByTokenHash($tokenHash){
+        
+        $connection = new Connection();
+        $db = $connection->connect();
+
+        $sql = "SELECT id, name
+                FROM clients
+                WHERE token_hash = :token_hash
+                LIMIT 1";
+
+        $stmt = $db->prepare($sql);
+        $stmt->execute([
+            ':token_hash' => $tokenHash
+        ]);
+
+        $client = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $client ?: false;
+}
+
+
+
+
+
+
+
+
 }

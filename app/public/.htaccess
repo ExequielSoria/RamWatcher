@@ -1,5 +1,8 @@
 RewriteEngine On
 
+# Pasar el encabezado Authorization a PHP
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
 # No reescribir archivos o directorios existentes
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
