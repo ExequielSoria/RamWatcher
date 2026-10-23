@@ -97,6 +97,35 @@ class Routes{
 
 
 
+            case 'clients':
+                if ( $method === 'POST' && count($segments) === 2 ) {
+
+                    $controller->createClient();
+                    return;
+                }
+
+                header('Content-Type: application/json; charset=utf-8');
+
+                if ($method !== 'POST') { 
+                    
+                    header('Allow: POST');
+                    http_response_code(405);
+
+                    echo json_encode([
+                        'error' => 'Método no permitido'
+                    ]);
+                    return;
+                }
+
+                http_response_code(404);
+
+                echo json_encode([
+                    'error' => 'Ruta no encontrada'
+                ]);
+                return;    
+
+
+
             // Si ningun caso se cumple imprimo el error en json
             default:
                 http_response_code(404);
